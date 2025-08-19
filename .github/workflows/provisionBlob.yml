@@ -63,7 +63,7 @@ jobs:
          terraform apply -auto-approve \
           -var="resource_group_name=${{ github.event.inputs.resource_group_name }}" \
           -var="location=${{ github.event.inputs.location }}" \
-          -var="storage_account_name=aditya${{ github.run_id }} \
+          -var="storage_account_name=aditya${{ github.run_id }}" \
           -var="container_name=${{ github.event.inputs.container_name }}"
         working-directory: ./terraform/azure/blob
 
