@@ -14,7 +14,7 @@ on:
       storage_account_name:
         description: "Storage Account name (must be unique)"
         required: true
-        default: "mystorageacct${{ github.run_number }}"
+        default: "adityastorageaccnt"
       container_name:
         description: "Blob Container name"
         required: true
