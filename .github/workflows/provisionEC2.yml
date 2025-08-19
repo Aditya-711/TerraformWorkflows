@@ -1,1 +1,44 @@
+name: Provision EC2 with Terraform
 
+on:
+  workflow_dispatch:  # manual trigger
+    inputs:
+      instance_name:
+        description: "Name of EC2 instance"
+        required: true
+        default: "MyEC2Instance"
+      instance_type:
+        description: "Instance type"
+        required: true
+        default: "t2.micro"
+      region:
+        description: "AWS Region"
+        required: true
+        default: "us-east-1"
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ github.event.inputs.region }}
+
+      - name: Terraform Init
+        run: terraform -chdir=terraform/ec2 init
+
+      - name: Terraform Apply
+        run: terraform -chdir=terraform/ec2 apply -auto-approve \
+          -var="region=${{ github.event.inputs.region }}" \
+          -var="instance_type=${{ github.event.inputs.instance_type }}" \
+          -var="instance_name=${{ github.event.inputs.instance_name }}"
