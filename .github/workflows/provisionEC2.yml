@@ -15,6 +15,10 @@ on:
         description: "AWS Region"
         required: true
         default: "us-east-1"
+      port_context:
+        required: true
+        description: "Details about the action and general context (blueprint, run id, etc...)"
+        type: string
 
 jobs:
   terraform:
