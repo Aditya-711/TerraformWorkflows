@@ -42,3 +42,15 @@ jobs:
           -var="region=${{ github.event.inputs.region }}" \
           -var="instance_type=${{ github.event.inputs.instance_type }}" \
           -var="instance_name=${{ github.event.inputs.instance_name }}"
+
+      - name: Notify Port
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          baseUrl: https://api.getport.io
+          runId: ${{ fromJson(inputs.port_context).runId }}
+          logMessage: |
+            Instance Provisioned
+          status: SUCCESS
