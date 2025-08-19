@@ -42,7 +42,8 @@ jobs:
         run: terraform -chdir=terraform/ec2 init
 
       - name: Terraform Apply
-        run: terraform -chdir=terraform/ec2 apply -auto-approve \
+        run: |
+         terraform -chdir=terraform/ec2 apply -auto-approve \
           -var="region=${{ github.event.inputs.region }}" \
           -var="instance_type=${{ github.event.inputs.instance_type }}" \
           -var="instance_name=${{ github.event.inputs.instance_name }}"
