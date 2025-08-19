@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "ami_id" {
-  default = "ami-08c40ec9ead489470" # Amazon Linux 2 in us-east-1
+  default = "ami-020cba7c55df1f615" # Ubunt in us-east-1
 }
 
 variable "instance_type" {
